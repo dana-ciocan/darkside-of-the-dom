@@ -8,11 +8,11 @@
     <script>
       class HelloName extends HTMLElement {
         connectedCallback() {
-          this.name = this.getAttribute("name");
+          this.name = this.getAttribute('name');
           this.innerHTML = `Hello ${this.name}`;
         }
       }
-      customElements.define("hello-to", HelloName);
+      customElements.define('hello-to', HelloName);
     </script>
   </head>
   <body>

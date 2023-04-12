@@ -1,0 +1,22 @@
+{
+  "name": "darkside-of-the-dom",
+  "version": "1.0.0",
+  "description": "Example repo for the Dark side of the DOM talk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dana-ciocan/darkside-of-the-dom.git"
+  },
+  "author": "Dana Ciocan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dana-ciocan/darkside-of-the-dom/issues"
+  },
+  "homepage": "https://github.com/dana-ciocan/darkside-of-the-dom#readme",
+  "dependencies": {
+    "prettier": "2.8.7"
+  }
+}

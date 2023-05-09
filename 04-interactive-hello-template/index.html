@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A simple web component</title>
+    <template id="hrn-button">
+      <button>Click to pick random name</button>
+    </template>
+    <template id="hrn-name-display"
+      ><slot name="random-name">Name will appear here</slot></template
+    >
+    <script>
+      class HelloRandomName extends HTMLElement {
+        connectedCallback() {
+          // Add the button
+          const buttonTemplate = document.getElementById('hrn-button');
+          const buttonTemplateContent = buttonTemplate.content;
+          const button = buttonTemplateContent.querySelector('button');
+          button.addEventListener('click', (e) => this.pickRandomName());
+          this.appendChild(buttonTemplateContent);
+
+          // Add the name display
+          const nameDisplayTemplate =
+            document.getElementById('hrn-name-display').content;
+          this.appendChild(nameDisplayTemplate);
+        }
+
+        pickRandomName() {
+          const names = ['Luke', 'Leia', 'Yoda', 'Anakin', 'Obi-wan'];
+          const textToDisplay = `Hello ${
+            names[Math.floor(Math.random() * names.length)]
+          }`;
+          // This probably isn't the way you should use slots...
+          this.querySelector('[name="random-name"]').innerHTML = textToDisplay;
+        }
+      }
+      customElements.define('hello-random-name', HelloRandomName);
+    </script>
+  </head>
+  <body>
+    <hello-random-name />
+  </body>
+</html>

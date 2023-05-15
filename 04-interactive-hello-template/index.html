@@ -5,12 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A simple web component</title>
-    <template id="hrn-button">
-      <button>Click to pick random name</button>
-    </template>
-    <template id="hrn-name-display"
-      ><slot name="random-name">Name will appear here</slot></template
-    >
     <script>
       class HelloRandomName extends HTMLElement {
         connectedCallback() {
@@ -40,6 +34,12 @@
     </script>
   </head>
   <body>
+    <template id="hrn-button">
+      <button>Click to pick random name</button>
+    </template>
+    <template id="hrn-name-display"
+      ><slot name="random-name">Name will appear here</slot></template
+    >
     <hello-random-name />
   </body>
 </html>

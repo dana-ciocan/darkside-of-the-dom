@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello name with the shadow DOM</title>
+    <script>
+      class HelloName extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: 'open' });
+          this.name = this.getAttribute('name');
+          this.shadowRoot.innerHTML = `Hello ${this.name}`;
+        }
+      }
+      customElements.define('hello-to', HelloName);
+    </script>
+  </head>
+  <body>
+    <hello-to name="Anakin" />
+  </body>
+</html>

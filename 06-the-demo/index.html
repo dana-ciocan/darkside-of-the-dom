@@ -5,8 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My planet manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Planet template - shows header, image and button -->
+    <template id="planet-template">
+      <style>
+        div {
+          width: calc(100% - 40px);
+          background-color: grey;
+          padding: 1px 20px 20px 20px;
+        }
+        h1 {
+          font-family: 'Space Mono', monospace;
+        }
+        button {
+          border: 0;
+          padding: 5px 15px;
+          border-radius: 15px;
+          cursor: pointer;
+        }
+      </style>
+      <div>
+        <h1><slot name="planet-name">Planet name</slot></h1>
+        <img src="images/planet-placeholder.jpg" />
+        <button>Kill it!</button>
+      </div>
+    </template>
+
     <h1>My planet manager</h1>
   </body>
 </html>

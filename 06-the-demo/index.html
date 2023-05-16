@@ -11,6 +11,23 @@
       href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
       rel="stylesheet"
     />
+
+    <script>
+      class MyPlanet extends HTMLElement {
+        constructor() {
+          super();
+
+          const planetTemplate = document.getElementById('planet-template');
+          const templateContent = planetTemplate.content;
+          const shadowRoot = this.attachShadow({ mode: 'open' });
+
+          shadowRoot.appendChild(templateContent.cloneNode(true));
+        }
+      }
+      if (!customElements.get('my-planet')) {
+        customElements.define('my-planet', MyPlanet);
+      }
+    </script>
   </head>
   <body>
     <!-- Planet template - shows header, image and button -->
@@ -20,6 +37,8 @@
           width: calc(100% - 40px);
           background-color: grey;
           padding: 1px 20px 20px 20px;
+          display: flex;
+          flex-direction: column;
         }
         h1 {
           font-family: 'Space Mono', monospace;
@@ -29,6 +48,7 @@
           padding: 5px 15px;
           border-radius: 15px;
           cursor: pointer;
+          margin-top: 30px;
         }
       </style>
       <div>
@@ -39,5 +59,6 @@
     </template>
 
     <h1>My planet manager</h1>
+    <my-planet></my-planet>
   </body>
 </html>

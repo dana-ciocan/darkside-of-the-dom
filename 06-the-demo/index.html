@@ -28,6 +28,14 @@
         customElements.define('my-planet', MyPlanet);
       }
     </script>
+    <style>
+      #planet-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <!-- Planet template - shows header, image and button -->
@@ -50,6 +58,9 @@
           cursor: pointer;
           margin-top: 30px;
         }
+        img {
+          width: 100%;
+        }
       </style>
       <div>
         <h1><slot name="planet-name">Planet name</slot></h1>
@@ -59,6 +70,19 @@
     </template>
 
     <h1>My planet manager</h1>
-    <my-planet></my-planet>
+    <div id="planet-container">
+      <my-planet>
+        <span slot="planet-name">Tattooine</span>
+      </my-planet>
+      <my-planet>
+        <span slot="planet-name">Alderaan</span>
+      </my-planet>
+      <my-planet>
+        <span slot="planet-name">Naboo</span>
+      </my-planet>
+      <my-planet>
+        <span slot="planet-name">Mandalore</span>
+      </my-planet>
+    </div>
   </body>
 </html>

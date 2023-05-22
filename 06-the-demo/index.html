@@ -22,6 +22,15 @@
           const shadowRoot = this.attachShadow({ mode: 'open' });
 
           shadowRoot.appendChild(templateContent.cloneNode(true));
+
+          this.planetImage = shadowRoot.querySelector('img');
+        }
+
+        connectedCallback() {
+          const imageAttribute =
+            this.getAttribute('image') || 'images/planet-placeholder.jpg';
+
+          this.planetImage.setAttribute('src', imageAttribute);
         }
       }
       if (!customElements.get('my-planet')) {
@@ -77,17 +86,17 @@
 
     <h1>My planet manager</h1>
     <div id="planet-container">
-      <my-planet image="">
+      <my-planet image="images/tatooine.webp">
         <span slot="planet-name">Tatooine</span>
       </my-planet>
-      <my-planet>
+      <my-planet image="images/alderaan.webp">
         <span slot="planet-name">Alderaan</span>
       </my-planet>
-      <my-planet>
+      <my-planet image="images/naboo.webp">
         <span slot="planet-name">Naboo</span>
       </my-planet>
-      <my-planet>
-        <span slot="planet-name">Mandalore</span>
+      <my-planet image="images/dagobah.webp">
+        <span slot="planet-name">Dagobah</span>
       </my-planet>
     </div>
   </body>

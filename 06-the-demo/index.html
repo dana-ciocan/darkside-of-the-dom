@@ -24,6 +24,10 @@
           shadowRoot.appendChild(templateContent.cloneNode(true));
 
           this.planetImage = shadowRoot.querySelector('img');
+          this.planetContainer = shadowRoot.querySelector(
+            'div.planet-container',
+          );
+          this.killButton = shadowRoot.querySelector('button');
         }
 
         connectedCallback() {
@@ -31,6 +35,16 @@
             this.getAttribute('image') || 'images/planet-placeholder.jpg';
 
           this.planetImage.setAttribute('src', imageAttribute);
+
+          this.killButton.addEventListener('click', (e) => {
+            this.killPlanet();
+          });
+        }
+
+        killPlanet() {
+          this.killButton.disabled = true;
+          this.planetContainer.style = 'background-color: hsl(0, 100%, 50%);';
+          this.planetImage.style = 'opacity: 0.4;';
         }
       }
       if (!customElements.get('my-planet')) {
@@ -44,7 +58,7 @@
         font-family: Arial, Helvetica, sans-serif;
       }
 
-      #planet-container {
+      #planet-manager {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 30px;
@@ -76,16 +90,23 @@
         img {
           width: 100%;
         }
+        .planet-container {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+        }
       </style>
       <div>
         <h1><slot name="planet-name">Planet name</slot></h1>
-        <img src="images/planet-placeholder.jpg" />
+        <div class="planet-container">
+          <img src="images/planet-placeholder.jpg" />
+        </div>
         <button>Kill it!</button>
       </div>
     </template>
 
     <h1>My planet manager</h1>
-    <div id="planet-container">
+    <div id="planet-manager">
       <my-planet image="images/tatooine.webp">
         <span slot="planet-name">Tatooine</span>
       </my-planet>

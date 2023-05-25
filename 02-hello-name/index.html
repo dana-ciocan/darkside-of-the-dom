@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
     <script>
-      class HelloName extends HTMLElement {
+      class HelloWorld extends HTMLElement {
         connectedCallback() {
           this.innerHTML = `Hello ${this.getAttribute('name')}`;
         }
       }
-      customElements.define('hello-to', HelloName);
+      customElements.define('hello-world', HelloWorld);
     </script>
   </head>
   <body>
-    <hello-to name="Anakin" />
+    <hello-world name="everyone watching this" />
   </body>
 </html>

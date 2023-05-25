@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      class HelloWorld extends HTMLElement {
+        static get observedAttributes() {
+          return ['name'];
+        }
+
+        attributeChangedCallback(name, oldVal, newValue) {
+          switch (name) {
+            case 'name':
+              this.innerHTML = `Hello ${this.getAttribute('name')}`;
+          }
+        }
+
+        connectedCallback() {
+          this.innerHTML = `Hello ${this.getAttribute('name')}`;
+          setTimeout(() => this.setAttribute('name', 'Yoda'), 3000);
+        }
+      }
+      customElements.define('hello-world', HelloWorld);
+    </script>
+  </head>
+  <body>
+    <hello-world name="Anakin" />
+  </body>
+</html>

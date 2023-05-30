@@ -3,20 +3,20 @@
   <head>
     <script>
       class HelloWorld extends HTMLElement {
+        connectedCallback() {
+          this.innerHTML = `Hello ${this.getAttribute('name')}`;
+          setTimeout(() => this.setAttribute('name', 'Yoda'), 3000);
+        }
+
         static get observedAttributes() {
           return ['name'];
         }
 
-        attributeChangedCallback(name, oldVal, newValue) {
+        attributeChangedCallback(name, oldValue, newValue) {
           switch (name) {
             case 'name':
               this.innerHTML = `Hello ${this.getAttribute('name')}`;
           }
-        }
-
-        connectedCallback() {
-          this.innerHTML = `Hello ${this.getAttribute('name')}`;
-          setTimeout(() => this.setAttribute('name', 'Yoda'), 3000);
         }
       }
       customElements.define('hello-world', HelloWorld);

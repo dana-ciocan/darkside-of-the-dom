@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using a template</title>
+    <script>
+      class MyPlanet extends HTMLElement {
+        connectedCallback() {
+          const planetTemplate = document.getElementById('planet');
+          const templateContent = planetTemplate.content;
+          this.appendChild(templateContent.cloneNode(true));
+        }
+      }
+      customElements.define('my-planet', MyPlanet);
+    </script>
+  </head>
+  <body>
+    <template id="planet">
+      <h1>Planet name</h1>
+      <img src="image-of-planet.jpg" />
+    </template>
+    <my-planet />
+  </body>
+</html>

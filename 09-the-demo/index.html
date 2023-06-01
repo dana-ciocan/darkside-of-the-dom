@@ -4,50 +4,42 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My planet manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap"
       rel="stylesheet"
     />
-
+    <title>My planet manager</title>
     <script>
       class MyPlanet extends HTMLElement {
         constructor() {
           super();
 
-          const planetTemplate = document.getElementById('planet-template');
+          const planetTemplate = document.getElementById('planet');
           const templateContent = planetTemplate.content;
-          const shadowRoot = this.attachShadow({ mode: 'open' });
+          this.attachShadow({ mode: 'open' });
 
-          shadowRoot.appendChild(templateContent.cloneNode(true));
-
-          this.planetImage = shadowRoot.querySelector('img');
-          this.planetContainer = shadowRoot.querySelector(
-            'div.planet-container',
-          );
-          this.killButton = shadowRoot.querySelector('button');
+          this.shadowRoot.appendChild(templateContent.cloneNode(true));
         }
 
         connectedCallback() {
-          const imageAttribute =
-            this.getAttribute('image') || 'images/planet-placeholder.jpg';
-
-          this.planetImage.setAttribute('src', imageAttribute);
-
-          this.killButton.addEventListener('click', (e) => {
-            this.killPlanet();
+          const killButton = this.shadowRoot.querySelector('button');
+          killButton.addEventListener('click', (e) => {
+            this.killPlanet(killButton);
           });
         }
 
-        killPlanet() {
-          this.killButton.disabled = true;
-          this.killButton.style = 'cursor: auto;';
-          this.planetContainer.style = 'background-color: hsl(0, 100%, 50%);';
-          this.planetImage.style = 'opacity: 0.4;';
+        killPlanet(button) {
+          button.disabled = true;
+          button.style = 'cursor: auto; background-color: grey';
+          const planetImageContainer = this.shadowRoot.querySelector(
+            'div.planet-image-container',
+          );
+          planetImageContainer.style = 'opacity: 0.4;';
         }
       }
+
       if (!customElements.get('my-planet')) {
         customElements.define('my-planet', MyPlanet);
       }
@@ -61,64 +53,75 @@
 
       #planet-manager {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-        margin: 20px;
+        grid-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
       }
     </style>
   </head>
   <body>
-    <!-- Planet template - shows header, image and button -->
-    <template id="planet-template">
+    <template id="planet">
       <style>
         div {
           width: calc(100% - 40px);
-          background-color: grey;
-          padding: 1px 20px 20px 20px;
+          background-color: white;
+          padding: 15px;
           display: flex;
           flex-direction: column;
+          border-radius: 10px;
         }
         h1 {
+          color: black;
+          padding: 0;
+          margin: 0;
           font-family: 'Space Mono', monospace;
         }
         button {
-          border: 0;
-          padding: 5px 15px;
-          border-radius: 15px;
+          background-color: black;
+          border: none;
+          color: white;
+          border-radius: 50%;
           cursor: pointer;
-          margin-top: 30px;
         }
-        img {
-          width: 100%;
+        .name-button-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
         }
-        .planet-container {
-          margin: 0;
+        .planet-image-container {
           padding: 0;
+          margin: 0;
           width: 100%;
         }
       </style>
       <div>
-        <h1><slot name="planet-name">Planet name</slot></h1>
-        <div class="planet-container">
-          <img src="images/planet-placeholder.jpg" />
+        <div class="planet-image-container">
+          <slot name="planet-image"
+            ><img src="./images/image-of-planet.jpg"
+          /></slot>
         </div>
-        <button>Kill it!</button>
+        <div class="name-button-container">
+          <h1><slot name="planet-name">Default planet name</slot></h1>
+          <button>Kill it!</button>
+        </div>
       </div>
     </template>
-
     <h1>My planet manager</h1>
     <div id="planet-manager">
-      <my-planet image="images/tatooine.webp">
+      <my-planet>
         <span slot="planet-name">Tatooine</span>
+        <img slot="planet-image" src="images/tatooine.jpg" />
       </my-planet>
-      <my-planet image="images/alderaan.webp">
+      <my-planet>
         <span slot="planet-name">Alderaan</span>
+        <img slot="planet-image" src="images/alderaan.jpg" />
       </my-planet>
-      <my-planet image="images/naboo.webp">
+      <my-planet>
         <span slot="planet-name">Naboo</span>
+        <img slot="planet-image" src="images/naboo.jpg" />
       </my-planet>
-      <my-planet image="images/dagobah.webp">
+      <my-planet>
         <span slot="planet-name">Dagobah</span>
+        <img slot="planet-image" src="images/dagobah.jpg" />
       </my-planet>
     </div>
   </body>
